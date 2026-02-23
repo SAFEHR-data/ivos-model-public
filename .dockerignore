@@ -1,0 +1,62 @@
+# Git (keep .git for setuptools-scm version detection)
+# .git
+.gitignore
+.gitmodules
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv
+venv/
+env/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Data and results (these should be ingressed separately)
+data/
+mlruns/
+outputs/
+*.csv
+*.parquet
+*.db
+*.duckdb
+
+# Notebooks and analysis
+lab/
+*.ipynb
+.ipynb_checkpoints/
+
+# Documentation
+docs/
+
+# CI/CD
+.github/
+.pre-commit-config.yaml
+
+# MacOS
+.DS_Store
+
+# TRE scripts (will be copied separately)
+tre/
+
+# Other
+*.tar
+*.tar.gz
+.env

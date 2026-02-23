@@ -1,0 +1,172 @@
+[build-system]
+requires = ["setuptools>=61", "wheel", "setuptools_scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "primitivo-model"
+dynamic = ["version"]
+description = "Primitivo Model - Probabilistic Prescribing"
+authors = [
+    {name = "Nel Swanepoel", email = "nel.swanepoel@nhs.net"},
+    {name = "Steve Harris", email = "s.harris8@nhs.net"},
+    {name = "Magnus Ross", email = "magnus.ross@nhs.net"},
+]
+requires-python = ">=3.12"
+readme = "README.md"
+license = {text = "Other/Proprietary License"}
+dependencies = [
+    "loguru",
+    "pydantic-settings",
+    "rich[jupyter]",
+    "tqdm",
+    "typer",
+    "sqlalchemy",
+    "pymssql",
+    "pandas",
+    "pandarallel",
+    "pyfonts",
+    "pywaffle",
+    "ipython",
+    "duckdb",
+    "duckdb-engine",
+    "flexitext",
+    "pypalettes",
+    "squarify",
+    "icecream",
+    "scikit-learn",
+    "seaborn",
+    "neuralprocesses",
+    "plotly",
+    "kaleido",
+    "dash",
+    "setuptools-scm",
+    "torch>=2.8.0",
+    "mlflow>=3.5.1",
+    "psutil>=7.0.0",
+    "nvidia-ml-py>=13.580.82",
+    "lightgbm>=4.6.0",
+]
+
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit",
+    "ruff",
+    "mypy",
+    "pytest",
+    "pytest-cov",
+    "ipython",
+    "jupyter",
+    "nbstripout",
+]
+quarto = [
+    "quarto",
+    "drawarrow",
+]
+
+
+
+[project.urls]
+Homepage = "https://github.com/SAFEHR-data/ivos-model"
+
+[project.scripts]
+primitivo-model = "primitivo_model.cli.main:run"
+
+[tool.setuptools.packages.find]
+include = ["primitivo_model*"]
+
+[tool.setuptools_scm]
+version_file = "primitivo_model/_version.py"
+
+
+[tool.mypy]
+python_version = 3.12
+plugins = [
+    "pydantic.mypy"
+]
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+ignore_errors = true
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+warn_untyped_fields = true
+
+
+[tool.isort]
+py_version=312
+use_parentheses = true
+honor_noqa = true
+line_length = 100
+extend_skip = [ ]
+
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+indent-width = 4
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+extend-exclude = [
+    "tests"
+]
+
+[tool.ruff.lint]
+# Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`) and isort codes
+select = ["E4", "E7", "E9", "F", "I"]
+# 4. Ignore `E402` (import violations) in all `__init__.py` files, and in select subdirectories.
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["E402"]
+"**/{tests,docs,tools}/*" = ["E402"]
+
+[tool.ruff.format]
+# Like Black, use double quotes for strings.
+quote-style = "double"
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
+
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "error",
+    "ignore::DeprecationWarning"
+]

@@ -1,0 +1,25 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.8.0
+    hooks:
+      # Run the linter.
+      - id: ruff
+        args: [ --fix ]
+        exclude: ^(logs/|cache/|mlruns/|data/)
+      # Run the formatter.
+      - id: ruff-format
+        exclude: ^(logs/|cache/|mlruns/|data/)
+  # - repo: https://github.com/pre-commit/mirrors-mypy
+  #   rev: v1.11.2
+  #   hooks:
+  #     - id: mypy
+  #       additional_dependencies: [pydantic]
+  #       exclude: ^(lab/|logs/|cache/|mlruns/|data/|src/radix/tests/|src/primitivo_model/|scripts/)
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.7.1
+    hooks:
+      - id: nbstripout
+        name: nbstripout - Strip outputs from notebooks
+        description: Strip outputs from Jupyter notebooks
+        files: \.ipynb$
